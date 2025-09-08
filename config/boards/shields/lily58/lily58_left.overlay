@@ -1,0 +1,38 @@
+/ {
+    /* Encoder exposed to the keymap */
+    sensors: sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&enc0>;
+        triggers-per-rotation = <4>;   /* tune to taste */
+    };
+
+    /* EC11 rotary encoder on Pro Micro pads D3/D2 */
+    enc0: encoder_0 {
+        compatible = "alps,ec11";
+        a-gpios = <&pro_micro D3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        b-gpios = <&pro_micro D2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        steps = <24>;                  /* typical EC11 20–30; 24 is a good start */
+        status = "okay";
+    };
+};
+
+/* --- OLED on I2C --- */
+/* Try i2c1 first; if nothing shows or build complains, move this block under &i2c0 */
+&i2c1 {
+    status = "okay";
+
+    /* SH1107 vertical 64×128 (address 0x3C is common) */
+    sh1107@3c {
+        /* If SH1107 isn’t supported in your ZMK/Zephyr, the build will fail here. */
+        compatible = "sinowealth,sh1107fb";
+        reg = <0x3c>;
+        label = "SH1107";
+        width = <64>;
+        height = <128>;
+        segment-offset = <0>;
+        page-offset = <0>;
+        display-offset = <0>;
+        rotation = <180>;   /* try 0 if orientation is wrong */
+        status = "okay";
+    };
+}
