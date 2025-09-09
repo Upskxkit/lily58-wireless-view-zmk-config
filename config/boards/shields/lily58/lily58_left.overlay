@@ -14,7 +14,7 @@
         steps = <24>;
         status = "okay";
     };
-
+`
      ws2812: ws2812 {
         compatible = "worldsemi,ws2812-gpio";
         label = "WS2812";
