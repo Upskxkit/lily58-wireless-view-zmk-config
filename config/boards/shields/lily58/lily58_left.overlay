@@ -4,7 +4,6 @@
     ssd1306@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3C>;       /* 0x3D if 0x3C doesn’t respond */
-        label = "SSD1306";
         width = <128>;
         height = <64>;
         rotation = <180>;
