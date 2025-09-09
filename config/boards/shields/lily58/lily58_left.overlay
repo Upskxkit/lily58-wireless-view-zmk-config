@@ -20,12 +20,12 @@
     *  - change reg to <0x3d>
     *  - or move this node under &i2c0 instead of &i2c1
     */
-    &i2c1 {
+    &i2c0 {
         status = "okay";
 
         sh1106@3c {
             compatible = "sinowealth,sh1106fb";
-            reg = <0x3c>;
+            reg = <0x3d>;
             label = "SH1106";
             width = <128>;
             height = <64>;
