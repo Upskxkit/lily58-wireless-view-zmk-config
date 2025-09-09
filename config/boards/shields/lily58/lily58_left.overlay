@@ -1,18 +1,19 @@
-/ {
-    /* Encoder exposed to the keymap */
-    sensors: sensors {
-        compatible = "zmk,keymap-sensors";
-        sensors = <&enc0>;
-        triggers-per-rotation = <4>;
-    };
+&i2c1 {
+    status = "okay";
 
-    /* EC11 rotary encoder on Pro Micro pads D3/D2 */
-    enc0: encoder_0 {
-        label = "ENCODER";
-        compatible = "alps,ec11";
-        a-gpios = <&pro_micro D3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        b-gpios = <&pro_micro D2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        steps = <24>;
+    ssd1306@3c {
+        compatible = "solomon,ssd1306fb";
+        reg = <0x3C>;       /* 0x3D if 0x3C doesn’t respond */
+        label = "SSD1306";
+        width = <128>;
+        height = <64>;
+        rotation = <180>;
+        multiplex-ratio = <63>; /* 64px -> 63 */
+        segment-remap;
+        com-invdir;
+        com-sequential;
+        inversion-on;
+        prechargep = <0x22>;
         status = "okay";
     };
 };

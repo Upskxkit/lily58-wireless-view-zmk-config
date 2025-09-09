@@ -1,0 +1,11 @@
+/ {
+  regulators {
+    vled_en: vled_enable {
+      compatible = "regulator-fixed";
+      regulator-name = "vled";
+      enable-gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>; /* example pin */
+      regulator-boot-on;
+      status = "okay";
+    };
+  };
+};
