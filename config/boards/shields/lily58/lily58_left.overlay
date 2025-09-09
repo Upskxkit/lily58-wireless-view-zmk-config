@@ -1,17 +1,19 @@
-&i2c1 {
+&pro_micro_i2c {
     status = "okay";
 
     ssd1306@3c {
         compatible = "solomon,ssd1306fb";
-        reg = <0x3C>;       /* 0x3D if 0x3C doesn’t respond */
-        width = <128>;
-        height = <64>;
-        rotation = <180>;
-        multiplex-ratio = <63>; /* 64px -> 63 */
+        reg = <0x3C>;
+        width = <64>;
+        height = <128>;
+
+        /* Try flipping if needed */
+        rotation = <0>;
         segment-remap;
         com-invdir;
-        com-sequential;
-        inversion-on;
+
+        multiplex-ratio = <127>;  /* 128-1 for 128px height */
+        display-offset = <0>;
         prechargep = <0x22>;
         status = "okay";
     };
