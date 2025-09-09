@@ -4,16 +4,16 @@
     ssd1306@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3C>;
-        width = <64>;
-        height = <128>;
+        width = <128>;
+        height = <64>;
 
-        /* Try flipping if needed */
-        rotation = <0>;
-        segment-remap;
-        com-invdir;
+        /* Try these first */
+        rotation = <180>;        /* try 0 or 180 */
+        segment-remap;           /* mirror X */
+        com-invdir;              /* mirror Y */
 
-        multiplex-ratio = <127>;  /* 128-1 for 128px height */
-        display-offset = <0>;
+        multiplex-ratio = <63>;  /* 64px -> 63 */
+        display-offset = <0>;    /* try 0, 1, 2… up to ~8 if vertically shifted */
         prechargep = <0x22>;
         status = "okay";
     };
