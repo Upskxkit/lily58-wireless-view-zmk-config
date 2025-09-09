@@ -1,0 +1,16 @@
+/ {
+     ws2812: ws2812 {
+        compatible = "worldsemi,ws2812-gpio";
+        label = "WS2812";
+        data-gpios = <&pro_micro D4 GPIO_ACTIVE_HIGH>;
+        chain-length = <6>;                   /* set to your LED count */
+        status = "okay";
+    };
+
+    rgb_underglow {
+        compatible = "zmk,rgb-underglow";
+        strip = <&ws2812>;
+        color-mapping = <LED_COLOR_MAPPING_GRB>;
+        status = "okay";
+    };
+};

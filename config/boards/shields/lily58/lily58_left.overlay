@@ -3,7 +3,7 @@
     sensors: sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&enc0>;
-        triggers-per-rotation = <4>;   /* tune to taste */
+        triggers-per-rotation = <4>;
     };
 
     /* EC11 rotary encoder on Pro Micro pads D3/D2 */
@@ -11,22 +11,22 @@
         compatible = "alps,ec11";
         a-gpios = <&pro_micro D3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         b-gpios = <&pro_micro D2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        steps = <24>;                  /* typical EC11 20–30; 24 is a good start */
+        steps = <24>;
+        status = "okay";
+    };
+
+     ws2812: ws2812 {
+        compatible = "worldsemi,ws2812-gpio";
+        label = "WS2812";
+        data-gpios = <&pro_micro D4 GPIO_ACTIVE_HIGH>;
+        chain-length = <6>;                   /* set to your LED count */
+        status = "okay";
+    };
+
+    rgb_underglow {
+        compatible = "zmk,rgb-underglow";
+        strip = <&ws2812>;
+        color-mapping = <LED_COLOR_MAPPING_GRB>;
         status = "okay";
     };
 };
-
-/* --- OLED on I2C --- */
-/* Try i2c1 first; if nothing shows or build complains, move this block under &i2c0 */
-&i2c0 {
-    status = "okay";
-    ssd1306@3c {
-        compatible = "solomon,ssd1306fb";
-        reg = <0x3d>;
-        label = "SSD1306";
-        width = <128>;
-        height = <32>;   /* many Lily58 kits use 128x32 modules */
-        rotation = <180>;
-        status = "okay";
-    };
-}
