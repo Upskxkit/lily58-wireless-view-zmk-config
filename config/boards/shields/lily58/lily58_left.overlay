@@ -15,23 +15,4 @@
         steps = <24>;
         status = "okay";
     };
-
-    /* ---------- SH1106 OLED on I2C ---------- */
-    /* Most Lily58 PCBs put OLED on i2c1 with address 0x3C. If blank, try:
-    *  - change reg to <0x3d>
-    *  - or move this node under &i2c0 instead of &i2c1
-    */
-    &i2c1 {
-        status = "okay";
-        
-        sh1106@3c {
-            compatible = "sinowealth,sh1106fb";
-            reg = <0x3C>;
-            label = "SH1106";
-            width = <128>;
-            height = <64>;
-            rotation = <180>;              /* flip to <0> if upside down */
-            status = "okay";
-        };
-    }
 };
