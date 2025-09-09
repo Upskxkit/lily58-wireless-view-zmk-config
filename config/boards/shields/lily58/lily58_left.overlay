@@ -14,19 +14,23 @@
         steps = <24>;
         status = "okay";
     };
-`
-     ws2812: ws2812 {
-        compatible = "worldsemi,ws2812-gpio";
-        label = "WS2812";
-        data-gpios = <&pro_micro D4 GPIO_ACTIVE_HIGH>;
-        chain-length = <6>;                   /* set to your LED count */
-        status = "okay";
-    };
 
-    rgb_underglow {
-        compatible = "zmk,rgb-underglow";
-        strip = <&ws2812>;
-        color-mapping = <LED_COLOR_MAPPING_GRB>;
+    /* ---------- SH1106 OLED on I2C ---------- */
+    /* Most Lily58 PCBs put OLED on i2c1 with address 0x3C. If blank, try:
+    *  - change reg to <0x3d>
+    *  - or move this node under &i2c0 instead of &i2c1
+    */
+    &i2c1 {
         status = "okay";
-    };
+
+        sh1106@3c {
+            compatible = "sinowealth,sh1106fb";
+            reg = <0x3c>;
+            label = "SH1106";
+            width = <128>;
+            height = <64>;
+            rotation = <180>;              /* flip to <0> if upside down */
+            status = "okay";
+        };
+    }
 };
