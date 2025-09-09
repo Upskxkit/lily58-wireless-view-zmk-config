@@ -8,6 +8,7 @@
 
     /* EC11 rotary encoder on Pro Micro pads D3/D2 */
     enc0: encoder_0 {
+        label = "ENCODER";
         compatible = "alps,ec11";
         a-gpios = <&pro_micro D3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         b-gpios = <&pro_micro D2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
@@ -22,7 +23,7 @@
     */
     &i2c0 {
         status = "okay";
-
+        
         sh1106@3c {
             compatible = "sinowealth,sh1106fb";
             reg = <0x3d>;
