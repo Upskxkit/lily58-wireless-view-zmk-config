@@ -96,7 +96,7 @@
                                         &trans        &trans        &trans        &bl BL_CYCLE       &none   &trans     &trans     &trans
             >;
 
-            sensor-bindings = <&BRIGHTS>;
+            sensor-bindings = <&RGB_UG>;
         };
 
         raise_layer {
