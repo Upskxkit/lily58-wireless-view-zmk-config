@@ -18,11 +18,11 @@
 
 /* --- OLED on I2C --- */
 /* Try i2c1 first; if nothing shows or build complains, move this block under &i2c0 */
-&i2c1 {
+&i2c0 {
     status = "okay";
     ssd1306@3c {
         compatible = "solomon,ssd1306fb";
-        reg = <0x3c>;
+        reg = <0x3d>;
         label = "SSD1306";
         width = <128>;
         height = <32>;   /* many Lily58 kits use 128x32 modules */
