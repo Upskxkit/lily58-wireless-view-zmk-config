@@ -20,19 +20,13 @@
 /* Try i2c1 first; if nothing shows or build complains, move this block under &i2c0 */
 &i2c1 {
     status = "okay";
-
-    /* SH1107 vertical 64×128 (address 0x3C is common) */
-    sh1107@3c {
-        /* If SH1107 isn’t supported in your ZMK/Zephyr, the build will fail here. */
-        compatible = "sinowealth,sh1107fb";
+    ssd1306@3c {
+        compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
-        label = "SH1107";
-        width = <64>;
-        height = <128>;
-        segment-offset = <0>;
-        page-offset = <0>;
-        display-offset = <0>;
-        rotation = <180>;   /* try 0 if orientation is wrong */
+        label = "SSD1306";
+        width = <128>;
+        height = <32>;   /* many Lily58 kits use 128x32 modules */
+        rotation = <180>;
         status = "okay";
     };
 }
