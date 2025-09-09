@@ -41,14 +41,7 @@
             flavor = "tap-preferred";
         };
 
-        BRIGHTS: BRIGHTS {
-            compatible = "zmk,behavior-sensor-rotate";
-            label = "BRIGHTS";
-            #sensor-binding-cells = <0>;
-            bindings = <&bl BL_INC>, <&bl BL_DEC>;
-        };
-
-        UG_RGB_ENC: UG_RGB_ENC {
+        ug_rgb_enc: ug_rgb_enc {
             compatible = "zmk,behavior-sensor-rotate";
             label = "UG_RGB_ENC";
             #sensor-binding-cells = <0>;
@@ -96,7 +89,7 @@
                                         &trans        &trans        &trans        &bl BL_CYCLE       &none   &trans     &trans     &trans
             >;
 
-            sensor-bindings = <&UG_RGB_ENC>;
+            sensor-bindings = <&ug_rgb_enc>;
         };
 
         raise_layer {
@@ -129,7 +122,7 @@
                                                    &trans           &trans                             &trans  &trans             &trans  &trans  &trans    &trans
             >;
 
-            sensor-bindings = <&UG_RGB_ENC>;
+            sensor-bindings = <&ug_rgb_enc>;
         };
     };
 };
