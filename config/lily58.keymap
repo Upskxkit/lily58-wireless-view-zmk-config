@@ -48,9 +48,9 @@
             bindings = <&bl BL_INC>, <&bl BL_DEC>;
         };
 
-        UG_RGB: UG_RGB {
+        UG_RGB_ENC: UG_RGB_ENC {
             compatible = "zmk,behavior-sensor-rotate";
-            label = "UG_RGB";
+            label = "UG_RGB_ENC";
             #sensor-binding-cells = <0>;
             bindings = <&rgb_ug RGB_EFF>, <&rgb_ug RGB_EFR>;
         };
@@ -96,7 +96,7 @@
                                         &trans        &trans        &trans        &bl BL_CYCLE       &none   &trans     &trans     &trans
             >;
 
-            sensor-bindings = <&UG_RGB>;
+            sensor-bindings = <&UG_RGB_ENC>;
         };
 
         raise_layer {
@@ -129,7 +129,7 @@
                                                    &trans           &trans                             &trans  &trans             &trans  &trans  &trans    &trans
             >;
 
-            sensor-bindings = <&UG_RGB>;
+            sensor-bindings = <&UG_RGB_ENC>;
         };
     };
 };
