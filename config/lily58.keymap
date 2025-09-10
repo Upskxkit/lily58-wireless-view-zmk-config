@@ -8,7 +8,6 @@
 #include <dt-bindings/zmk/backlight.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/rgb.h>
 
 &led_strip {
     chain-length = <6>;
@@ -31,13 +30,63 @@
             bindings = <&kp DOT>, <&kp COLON>;
         };
 
-        LONG_PRESS: LONG_PRESS {
+        long_press: long_press {
             compatible = "zmk,behavior-hold-tap";
             label = "LONG_PRESS";
             bindings = <&kp>, <&kp>;
 
             #binding-cells = <2>;
             tapping-term-ms = <350>;
+            flavor = "tap-preferred";
+        };
+
+        hmShiftR: hmShiftR {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HMSHIFTR";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            hold-while-undecided;
+            hold-trigger-key-positions = <0 12 36 0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 39 40 41 42 50 51 52 53>;
+            hold-trigger-on-release;
+        };
+
+        hmShiftLeft: hmShiftLeft {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HMSHIFTLEFT";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            hold-while-undecided;
+            hold-trigger-on-release;
+            hold-trigger-key-positions = <6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 44 45 46 47 48 49 54 55 56 57 43>;
+        };
+
+        hmr: hmr {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HMR";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            hold-while-undecided;
+            hold-trigger-key-positions = <0 12 36 0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 39 40 41 42 50 51 52 53>;
+            hold-trigger-on-release;
+            flavor = "tap-preferred";
+        };
+
+        hml: hml {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HML";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            hold-while-undecided;
+            hold-trigger-on-release;
+            hold-trigger-key-positions = <6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 44 45 46 47 48 49 54 55 56 57 43>;
             flavor = "tap-preferred";
         };
     };
@@ -55,11 +104,11 @@
 
             display-name = "Base";
             bindings = <
-&kp ESC    &kp N1  &kp N2  &kp N3    &kp N4    &kp N5                            &kp N6  &kp N7           &kp N8      &kp N9    &kp N0    &kp GRAVE
-&kp TAB    &kp Q   &kp W   &kp E     &kp R     &kp T                             &kp Y   &kp U            &kp I       &kp O     &kp P     &kp MINUS
-&kp LCTRL  &kp A   &kp S   &kp D     &kp F     &kp G                             &kp H   &kp J            &kp K       &kp L     &kp SEMI  &kp SQT
-&kp LSHFT  &kp Z   &kp X   &kp C     &kp V     &kp B   &kp C_MUTE    &kp DELETE  &kp N   &kp M            &ComaDBTap  &DBT_Dot  &kp FSLH  &kp RSHFT
-                           &kp LALT  &kp LGUI  &mo 1   &kp SPACE     &kp RET     &mo 2   &kp BACKSPACE  &kp RGUI
+&kp ESC    &kp N1  &kp N2               &kp N3               &kp N4                     &kp N5                                         &kp N6  &kp N7                   &kp N8       &kp N9    &kp N0    &kp GRAVE
+&kp TAB    &kp Q   &long_press W LC(W)  &kp E                &kp R                      &long_press T LC(T)                            &kp Y   &kp U                    &kp I        &kp O     &kp P     &kp MINUS
+&kp LCTRL  &kp A   &kp S                &kp D                &hmShiftLeft LEFT_SHIFT F  &kp G                                          &kp H   &hmShiftR RIGHT_SHIFT J  &hmr LWIN K  &kp L     &kp SEMI  &kp SQT
+&kp LSHFT  &kp Z   &kp X                &long_press C LC(C)  &long_press V LC(V)        &kp B                &kp C_MUTE    &kp DELETE  &kp N   &kp M                    &ComaDBTap   &DBT_Dot  &kp FSLH  &kp RSHFT
+                                        &kp LALT             &kp LGUI                   &mo 1                &kp SPACE     &kp RET     &mo 2   &kp BACKSPACE            &kp RGUI
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
@@ -75,11 +124,11 @@
 
             display-name = "Lower";
             bindings = <
-&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                             &trans     &trans     &trans           &trans    &trans    &trans
-&kp F1      &kp F2        &kp F3        &kp F4        &kp F5        &kp F6                                   &kp F7     &kp F8     &kp F9           &kp F10   &kp F11   &kp F12
-&kp GRAVE   &kp EXCL      &kp AT        &kp HASH      &kp DOLLAR    &kp PRCNT                                &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &kp TILDE
-&trans      &trans        &trans        &trans        &trans        &trans        &trans    &trans  &trans     &kp MINUS  &kp KP_PLUS      &kp LBRC  &kp RBRC  &kp PIPE
-                                        &trans        &trans        &trans        &bl BL_CYCLE       &none   &trans     &trans     &trans
+&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                          &trans     &trans     &trans           &trans    &trans    &trans
+&kp F1      &kp F2        &kp F3        &kp F4        &kp F5        &kp F6                                &kp F7     &kp F8     &kp F9           &kp F10   &kp F11   &kp F12
+&kp GRAVE   &kp EXCL      &kp AT        &kp HASH      &kp DOLLAR    &kp PRCNT                             &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &kp TILDE
+&trans      &trans        &trans        &trans        &trans        &trans        &trans          &trans  &trans     &kp MINUS  &kp KP_PLUS      &kp LBRC  &kp RBRC  &kp PIPE
+                                        &trans        &trans        &trans        &bl BL_CYCLE    &none   &trans     &trans     &trans
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
