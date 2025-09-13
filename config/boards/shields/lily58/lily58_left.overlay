@@ -1,1 +1,12 @@
 / {};
+
+&pinctrl {
+    i2c0_default: i2c0_default {
+        group1 {
+            /* nice!nano D2 = P0.02 (SDA), D3 = P0.03 (SCL) */
+            psels = <NRF_PSEL(TWIM_SDA, 0, 2)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 3)>;
+            bias-pull-up;
+        };
+    };
+};
