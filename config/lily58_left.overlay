@@ -1,55 +1,46 @@
 / {
-    chosen {
-        zephyr,display = &oled;
-    }
-
-    /* Define pin states for I2C0: SDA=P0.17, SCL=P0.20 */
-    i2c0_default: i2c0_default {
-        group1 {
-            psels = <NRF_PSEL(TWIM_SDA, 0, 17)>,
-                    <NRF_PSEL(TWIM_SCL, 0, 20)>;
-        };
-    };
-
-    i2c0_sleep: i2c0_sleep {
-        group1 {
-            psels = <NRF_PSEL(TWIM_SDA, 0, 17)>,
-                    <NRF_PSEL(TWIM_SCL, 0, 20)>;
-            low-power-enable;
-        };
-    };
+	chosen {
+		zephyr,display = &oled;
+	};
 };
 
-/* I2C0 on nRF52840 (0x40003000) */
+&pinctrl {
+	i2c0_default_l58: i2c0_default_l58 {
+		group1 {
+			psels = <NRF_PSEL(TWIM_SDA, 0, 17) NRF_PSEL(TWIM_SCL, 0, 20)>;
+		};
+	};
+
+	i2c0_sleep_l58: i2c0_sleep_l58 {
+		group1 {
+			psels = <NRF_PSEL(TWIM_SDA, 0, 17) NRF_PSEL(TWIM_SCL, 0, 20)>;
+			low-power-enable;
+		};
+	};
+};
+
 &i2c0 {
-    status = "okay";
-    clock-frequency = <I2C_BITRATE_STANDARD>;  /* 100 kHz while testing */
+	status = "okay";
+	clock-frequency = <I2C_BITRATE_STANDARD>;
+	pinctrl-0 = <&i2c0_default_l58>;
+	pinctrl-1 = <&i2c0_sleep_l58>;
+	pinctrl-names = "default", "sleep";
 
-    /* Hook up the pin states defined above */
-    pinctrl-0 = <&i2c0_default>;
-    pinctrl-1 = <&i2c0_sleep>;
-    pinctrl-names = "default", "sleep";
-
-    /* OLED — pick the one you actually have */
-    oled: ssd1306@3c {
-        compatible = "solomon,ssd1306fb-i2c";
-        reg = <0x3C>;     /* try 0x3D if needed */
-        width = <128>;
-        height = <64>;
-        status = "okay";
-        /* If RST is wired to MCU, declare it:
-         * reset-gpios = <&gpio0 12 GPIO_ACTIVE_LOW>;
-         */
-    };
-
-    /* If your module is SH1106, use this instead and remove the SSD1306 node:
-    oled: sh1106@3c {
-        compatible = "sinowealth,sh1106";
-        reg = <0x3C>;
-        width = <128>;
-        height = <64>;
-        segment-offset = <2>;
-        status = "okay";
-    };
-    */
+	oled: ssd1306@3c {
+		compatible = "solomon,ssd1306fb-i2c";
+		reg = <0x3C>;   /* use <0x3D> if your board is strapped for that */
+		width = <128>;
+		height = <64>;
+		status = "okay";
+	};
+	/* If it's actually SH1106, replace the node above with this:
+	oled: sh1106@3c {
+		compatible = "sinowealth,sh1106";
+		reg = <0x3C>;
+		width = <128>;
+		height = <64>;
+		segment-offset = <2>;
+		status = "okay";
+	};
+	*/
 };
