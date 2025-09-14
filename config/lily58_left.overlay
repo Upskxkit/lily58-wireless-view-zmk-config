@@ -1,7 +1,5 @@
 / {
-	chosen {
-		zephyr,display = &oled;
-	};
+	chosen { zephyr,display = &oled; };
 };
 
 &pinctrl {
@@ -28,19 +26,9 @@
 
 	oled: ssd1306@3c {
 		compatible = "solomon,ssd1306fb-i2c";
-		reg = <0x3C>;   /* use <0x3D> if your board is strapped for that */
+		reg = <0x3D>;
 		width = <128>;
 		height = <64>;
 		status = "okay";
 	};
-	/* If it's actually SH1106, replace the node above with this:
-	oled: sh1106@3c {
-		compatible = "sinowealth,sh1106";
-		reg = <0x3C>;
-		width = <128>;
-		height = <64>;
-		segment-offset = <2>;
-		status = "okay";
-	};
-	*/
 };
